@@ -16,6 +16,8 @@ flutter 常用工具类
 4. ScreenInfo 屏幕信息
 5. StringUtils 字符串工具类
 6. SystemUtils copy,打开，关闭键盘
+7. FileUtils 文件管理
+8. SPUtils SharedPreferences封装类
 
 ## 常用Widget
 
