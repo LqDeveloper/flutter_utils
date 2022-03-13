@@ -10,5 +10,4 @@ extension ListExtensions on List {
   String getJsonPretty() {
     return const JsonEncoder.withIndent('\t').convert(this);
   }
-
 }
