@@ -28,6 +28,9 @@ android {
 6. SystemUtils copy,打开，关闭键盘
 7. FileUtils 文件管理
 8. SPUtils SharedPreferences封装类
+9. PackageUtils 包信息
+10. DeviceUtils 设备信息
+11. UtilsInit 初始化Utils
 
 ## 常用Widget
 
