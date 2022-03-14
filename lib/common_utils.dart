@@ -14,6 +14,9 @@ export 'utils/screen_info.dart';
 export 'utils/system_utils.dart';
 export 'utils/sp_utils.dart';
 export 'utils/file_utils.dart';
+export 'utils/device_utils.dart';
+export 'utils/package_utils.dart';
+export 'utils/utils_init.dart';
 
 export 'widgets/after_layout_mixin.dart';
 export 'widgets/bottom_nav_bar.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-abstract class ColorUtils {
+class ColorUtils {
   static int alpha(String code) {
     try {
       int length = code.length;

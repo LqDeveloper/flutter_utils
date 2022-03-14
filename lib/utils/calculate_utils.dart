@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 /// 计算工具类
-abstract class CalculateUtils {
+class CalculateUtils {
   /// 计算文本高度
   static double calculateTextHeight(BuildContext context, String? value,
       double fontSize, FontWeight fontWeight, double maxWidth, int maxLines) {

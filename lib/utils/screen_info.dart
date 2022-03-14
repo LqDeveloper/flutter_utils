@@ -1,7 +1,7 @@
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
-abstract class ScreenInfo {
+class ScreenInfo {
   ///屏幕尺寸
   static Size get screenSize => MediaQueryData.fromWindow(ui.window).size;
 

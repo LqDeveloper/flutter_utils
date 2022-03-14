@@ -10,7 +10,7 @@ class SPUtils {
   static SharedPreferences get spInstance => _preferences;
 
   ///必须在使用之前调用
-  Future<void> initSP() async {
+  static Future<void> initSP() async {
     _preferences = await SharedPreferences.getInstance();
   }
 

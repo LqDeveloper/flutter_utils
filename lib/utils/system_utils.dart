@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+typedef CopyCallBack = void Function(bool result);
+
 /// 系统工具类
 abstract class SystemUtils {
   /// 拷贝文本内容到剪切板
@@ -18,6 +20,16 @@ abstract class SystemUtils {
       }
     }
     return false;
+  }
+
+  /// 拷贝文本内容到剪切板
+  static void copyToClipboardWithCallBack(String? text, CopyCallBack callBack) {
+    if (text != null && text.isNotEmpty) {
+      Clipboard.setData(ClipboardData(text: text));
+      callBack(true);
+    } else {
+      callBack(false);
+    }
   }
 
   /// 隐藏软键盘，具体可看：TextInputChannel
