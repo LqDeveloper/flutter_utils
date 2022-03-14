@@ -1,6 +1,6 @@
 name: lq_common_utils
-description: common tools of flutter.Contains commonly used tool classes and extensions.
-version: 0.0.4
+description: common tools of flutter.Contain commonly used tool classes and extensions.
+version: 0.0.5
 homepage: https://github.com/LqDeveloper/flutter_utils
 
 environment:
@@ -12,6 +12,7 @@ dependencies:
     sdk: flutter
   path_provider: ^2.0.9
   shared_preferences: ^2.0.13
+  webview_flutter: ^3.0.1
 
 dev_dependencies:
   flutter_test:

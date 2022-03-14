@@ -1,5 +1,15 @@
 flutter 常用工具类
 
+## AppWebView 要求Android SDK版本
+
+```groovy 
+android {
+    defaultConfig {
+        minSdkVersion 19
+    }
+}
+```
+
 ## 扩展 extension
 
 1. BuildContext 的extension
@@ -27,3 +37,4 @@ flutter 常用工具类
 4. KeepAliveWidget 实现了AutomaticKeepAliveClientMixin的StatefulWidget
 5. LayoutLogPrint 打印布局信息
 6. LoadingStatusWidget 包含loading, error, completed状态的Widget
+7. AppWebView 加载url,html String, html文件的WebView
