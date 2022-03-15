@@ -2,11 +2,17 @@ import 'package:flutter/material.dart';
 import 'bottom_nav_bar.dart';
 
 class BottomNavPage extends StatefulWidget {
-  final List<TabItem> tabs;
-  final BottomNavigationBarThemeData themeData;
   final int currentIndex;
   final ValueChanged<int>? onTap;
+  final BottomNavigationBarThemeData themeData;
+
+  final PreferredSizeWidget? appBar;
   final List<Widget> pages;
+  final List<TabItem> tabs;
+  final Widget? floatingActionButton;
+  final FloatingActionButtonLocation? floatingActionButtonLocation;
+  final Widget? drawer;
+  final DrawerCallback? onDrawerChanged;
 
   const BottomNavPage(
       {Key? key,
@@ -14,6 +20,11 @@ class BottomNavPage extends StatefulWidget {
       required this.pages,
       int index = 0,
       this.onTap,
+      this.appBar,
+      this.floatingActionButton,
+      this.floatingActionButtonLocation,
+      this.drawer,
+      this.onDrawerChanged,
       BottomNavigationBarThemeData? data})
       : assert(tabs.length == pages.length),
         assert(tabs.length >= 2 && pages.length >= 2),
@@ -62,18 +73,24 @@ class BottomNavPageState extends State<BottomNavPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: PageView.builder(
-          itemBuilder: (cxt, index) => widget.pages[index],
-          controller: _pageController,
-          itemCount: widget.tabs.length,
-          physics: const NeverScrollableScrollPhysics(),
-        ),
-        bottomNavigationBar: BottomNavBar(
-          currentIndex: _currentIndex,
-          tabs: widget.tabs,
-          data: widget.themeData,
-          onTap: jumpToPage,
-        ));
+      appBar: widget.appBar,
+      body: PageView.builder(
+        itemBuilder: (cxt, index) => widget.pages[index],
+        controller: _pageController,
+        itemCount: widget.tabs.length,
+        physics: const NeverScrollableScrollPhysics(),
+      ),
+      bottomNavigationBar: BottomNavBar(
+        currentIndex: _currentIndex,
+        tabs: widget.tabs,
+        data: widget.themeData,
+        onTap: jumpToPage,
+      ),
+      floatingActionButton: widget.floatingActionButton,
+      floatingActionButtonLocation: widget.floatingActionButtonLocation,
+      drawer: widget.drawer,
+      onDrawerChanged: widget.onDrawerChanged,
+    );
   }
 
   void jumpToPage(int index) {

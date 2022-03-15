@@ -1,6 +1,6 @@
 name: lq_common_utils
 description: common tools of flutter.Contain commonly used tool classes and extensions.
-version: 0.0.6
+version: 0.0.7
 homepage: https://github.com/LqDeveloper/flutter_utils
 
 environment:

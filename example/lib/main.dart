@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lq_common_utils/common_utils.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -23,6 +24,9 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavPage(
+      appBar: AppBar(
+        title: const Text("标题"),
+      ),
       tabs: const [
         TabItem(icon: Icon(Icons.home), label: "主页"),
         TabItem(icon: Icon(Icons.message), label: "我的"),
@@ -93,10 +97,12 @@ class PageFour extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      appBar: AppBar(title: const Text("WebView"),),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("WebView"),
+      ),
       body: const AppWebView(
-        type:WebViewLoadType.htmlFile,
+        type: WebViewLoadType.htmlFile,
         value: "assets/index.html",
         // value: "https://www.baidu.com",
 //       value: """
@@ -109,9 +115,10 @@ class PageFour extends StatelessWidget {
 // </html>
 //       """,
       ),
-      floatingActionButton: FloatingActionButton(onPressed: ()async{
-
-      },child: const Icon(Icons.add),),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {},
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
