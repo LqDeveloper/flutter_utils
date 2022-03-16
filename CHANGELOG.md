@@ -1,3 +1,3 @@
 ## 0.0.7
 
-modify BottomNavPage
+add Swiper

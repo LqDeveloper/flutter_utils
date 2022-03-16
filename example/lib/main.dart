@@ -38,16 +38,18 @@ class Home extends StatelessWidget {
   }
 }
 
-class PageOne extends KeepAliveWidget {
+class PageOne extends StatelessWidget {
   const PageOne({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(itemBuilder: (_, index) {
-      return ListTile(
-        title: Text("这是第$index行"),
-      );
-    });
+    return KeepAliveWidget(
+      child: ListView.builder(itemBuilder: (_, index) {
+        return ListTile(
+          title: Text("这是第$index行"),
+        );
+      }),
+    );
   }
 }
 
@@ -77,14 +79,20 @@ class PageThree extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Container(
-          width: 200,
+      body: KeepAliveWidget(
+        child: SizedBox(
           height: 200,
-          color: Colors.red,
-          child: Container(
-            color: Colors.green,
-            margin: const EdgeInsets.all(20),
+          child: Swiper.builder(
+            indicator: RectangleSwiperIndicator(),
+            childCount: 4,
+            itemBuilder: (cxt, index) {
+              return Container(
+                color: Colors.primaries[index],
+              );
+            },
+            onTap: (index){
+              print(index);
+            },
           ),
         ),
       ),

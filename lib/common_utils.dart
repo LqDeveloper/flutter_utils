@@ -25,3 +25,4 @@ export 'widgets/keep_alive_widget.dart';
 export 'widgets/layout_log_print.dart';
 export 'widgets/loading_status_widget.dart';
 export 'widgets/app_web_view.dart';
+export 'widgets/swiper.dart';

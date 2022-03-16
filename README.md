@@ -41,3 +41,4 @@ android {
 5. LayoutLogPrint 打印布局信息
 6. LoadingStatusWidget 包含loading, error, completed状态的Widget
 7. AppWebView 加载url,html String, html文件的WebView
+8. Swiper 轮播图
