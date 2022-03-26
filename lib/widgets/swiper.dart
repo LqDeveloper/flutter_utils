@@ -416,12 +416,11 @@ class _SwiperState extends State<Swiper>
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () {
-            int index = _index % widget.childCount;
             if (widget.onTap != null) {
-              widget.onTap!(index);
+              widget.onTap!(_index % widget.childCount);
             }
           },
-          child: widget.itemBuilder(context, index),
+          child: widget.itemBuilder(context, index % widget.childCount),
         );
       },
     ));
