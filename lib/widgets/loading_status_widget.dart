@@ -21,9 +21,9 @@ class LoadingStatusWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (loadingStatus) {
       case LoadingStatus.loading:
-        return loading != null ? loading!(context) : builder(context);
+        return loading != null ? loading!(context) : Container();
       case LoadingStatus.error:
-        return error != null ? error!(context) : builder(context);
+        return error != null ? error!(context) : Container();
       case LoadingStatus.completed:
         return builder(context);
     }

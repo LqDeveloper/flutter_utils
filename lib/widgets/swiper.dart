@@ -414,7 +414,15 @@ class _SwiperState extends State<Swiper>
       onPageChanged: _onPageChanged,
       controller: _pageController,
       itemBuilder: (context, index) {
-        return widget.itemBuilder(context, index % widget.childCount);
+        return GestureDetector(
+          onTap: () {
+            int index = _index % widget.childCount;
+            if (widget.onTap != null) {
+              widget.onTap!(index);
+            }
+          },
+          child: widget.itemBuilder(context, index),
+        );
       },
     ));
 
@@ -431,12 +439,7 @@ class _SwiperState extends State<Swiper>
     }
 
     return Listener(
-      onPointerDown: (event) {
-        _timer?.cancel();
-        if (widget.onTap != null) {
-          widget.onTap!(_index % widget.childCount);
-        }
-      },
+      onPointerDown: (event) => _timer?.cancel(),
       onPointerCancel: (event) => _start(),
       onPointerUp: (event) => _start(),
       child: Stack(alignment: widget.indicatorAlignment, children: children),

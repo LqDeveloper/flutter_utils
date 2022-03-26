@@ -1,3 +1,3 @@
-## 0.0.9
+## 0.0.10
 
-add AfterLayoutWidget
+fix bug of Swiper
