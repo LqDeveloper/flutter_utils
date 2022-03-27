@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:path_provider/path_provider.dart';
 
 class FileUtils {
@@ -31,22 +32,46 @@ class FileUtils {
     }
     try {
       final file = File(filePath);
-      return await file.readAsString();
+      if (file.existsSync()) {
+        return await file.readAsString();
+      }
+      return null;
     } catch (err) {
       return null;
     }
   }
 
   /// 写入json文件
-  static Future<File?> writeJsonFileDir(Object? obj, String? filePath) async {
+  static Future<File?> writeJsonToFile(Object? obj, String? filePath) async {
     if (obj == null || filePath == null || filePath.isEmpty) {
       return null;
     }
     try {
       final file = File(filePath);
-      return await file.writeAsString(json.encode(obj));
+      if (file.existsSync()) {
+        return await file.writeAsString(json.encode(obj));
+      } else {
+        file.createSync(recursive: true);
+        return await file.writeAsString(json.encode(obj));
+      }
     } catch (err) {
       return null;
+    }
+  }
+
+  ///创建文件
+  static Future<bool> createFile(String? filePath) async {
+    if (filePath == null) {
+      return false;
+    }
+    try {
+      final file = File(filePath);
+      if (!file.existsSync()) {
+        file.createSync(recursive: true);
+      }
+      return true;
+    } catch (err) {
+      return false;
     }
   }
 
@@ -57,10 +82,23 @@ class FileUtils {
     }
     try {
       final file = File(filePath);
-      file.delete();
+      if (file.existsSync()) {
+        file.delete();
+      }
       return true;
     } catch (err) {
       return false;
+    }
+  }
+
+  ///删除某个文件夹
+  static Future<void> deleteDir(FileSystemEntity file) async {
+    if (file is Directory) {
+      final List<FileSystemEntity> children = file.listSync();
+      for (final FileSystemEntity child in children) {
+        await deleteDir(child);
+        await child.delete();
+      }
     }
   }
 
@@ -71,7 +109,6 @@ class FileUtils {
   /// 在iOS上，它使用“NSCachesDirectory”API。
   /// 在Android上，它在上下文中使用“getCacheDir”API。
   static Future<Directory?> _initTempDir() async {
-    //获取一个临时目录(缓存)，系统可以随时清除。
     try {
       return await getTemporaryDirectory();
     } catch (_) {
@@ -119,7 +156,7 @@ class FileUtils {
     }
   }
 
-  /// 同步创建文件
+  /// 同步创建文件夹
   static Directory? createDir(String? path) {
     if (path == null || path.isEmpty) {
       return null;
@@ -131,7 +168,7 @@ class FileUtils {
     return dir;
   }
 
-  /// 异步创建文件
+  /// 异步创建文件夹
   static Future<Directory?> createDirSync(String? path) async {
     if (path == null || path.isEmpty) {
       return null;
@@ -260,5 +297,57 @@ class FileUtils {
       return null;
     }
     return await createDirSync("${_supportDir.path}/$dirName");
+  }
+
+  ///获取Cache文件下文件大小 getTemporaryDirectory 获取应用缓存目录，
+  ///等同IOS的NSCachesDirectory和Android的getCacheDir方法
+  static Future<double> loadCacheDirSize() async {
+    Directory tempDirectory = await getTemporaryDirectory();
+    double size = 0;
+    if (tempDirectory.existsSync()) {
+      size += await getTotalSizeOfFilesInDir(tempDirectory);
+    }
+    return size;
+  }
+
+  ///清空缓存文件夹
+  static Future<void> clearCacheDir() async {
+    Directory tempDirectory = await getTemporaryDirectory();
+    if (tempDirectory.existsSync()) {
+      await deleteDir(tempDirectory);
+    }
+  }
+
+  ///获取指定文件夹下文件的大小
+  static Future<double> getTotalSizeOfFilesInDir(
+      final FileSystemEntity file) async {
+    if (file is File) {
+      int length = await file.length();
+      return double.parse(length.toString());
+    }
+    if (file is Directory) {
+      final List<FileSystemEntity> children = file.listSync();
+      double total = 0;
+      for (final FileSystemEntity child in children) {
+        total += await getTotalSizeOfFilesInDir(child);
+      }
+      return total;
+    }
+    return 0;
+  }
+
+  ///将文件大小格式化为 'B', 'K', 'M', 'G'
+  static String formatSize(double value) {
+    if (value == 0) {
+      return '0';
+    }
+    List<String> unitArr = ['B', 'K', 'M', 'G'];
+    int index = 0;
+    while (value > 1024) {
+      index++;
+      value = value / 1024;
+    }
+    String size = value.toStringAsFixed(2);
+    return size + unitArr[index];
   }
 }
